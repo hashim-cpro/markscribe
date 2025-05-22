@@ -35,9 +35,9 @@ type HackatimeStats struct {
 }
 
 func hackatimeStats() HackatimeStats {
-	username := os.Getenv("HACKATIME_USERNAME")
+	username := os.Getenv("WAKATIME_USERNAME")
 	if username == "" {
-		fmt.Println("HACKATIME_USERNAME environment variable not set")
+		fmt.Println("WAKATIME_USERNAME environment variable not set")
 		return HackatimeStats{}
 	}
 
@@ -51,9 +51,9 @@ func hackatimeStats() HackatimeStats {
 }
 
 func getHackatimeStats(username string) (*HackatimeStats, error) {
-	apiKey := os.Getenv("HACKATIME_API_KEY")
+	apiKey := os.Getenv("WAKATIME_API_KEY")
 	if apiKey == "" {
-		return nil, fmt.Errorf("HACKATIME_API_KEY environment variable not set")
+		return nil, fmt.Errorf("WAKATIME_API_KEY environment variable not set")
 	}
 
 	url := fmt.Sprintf("https://hackatime.hackclub.com/api/v1/users/%s/stats", username)

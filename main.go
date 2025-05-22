@@ -12,7 +12,6 @@ import (
 	"time"
 
 	"github.com/KyleBanks/goodreads"
-	"github.com/joho/godotenv"
 	"github.com/shurcooL/githubv4"
 	"golang.org/x/oauth2"
 )
@@ -32,11 +31,6 @@ func main() {
 	if len(flag.Args()) == 0 {
 		fmt.Println("Usage: markscribe [template]")
 		os.Exit(1)
-	}
-
-	// Load .env file
-	if err := godotenv.Load(); err != nil {
-		fmt.Println("Warning: Error loading .env file:", err)
 	}
 
 	tplIn, err := ioutil.ReadFile(flag.Args()[0])
@@ -82,7 +76,7 @@ func main() {
 	}
 
 	var httpClient *http.Client
-	gitHubToken := os.Getenv("GITHUB_TOKEN")
+	gitHubToken := os.Getenv("PERSONAL_GITHUB_TOKEN")
 	goodReadsToken := os.Getenv("GOODREADS_TOKEN")
 	goodReadsID = os.Getenv("GOODREADS_USER_ID")
 	if len(gitHubToken) > 0 {
