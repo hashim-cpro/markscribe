@@ -1,4 +1,4 @@
-module github.com/muesli/markscribe
+module github.com/hashim-cpro/markscribe
 
 go 1.14
 
