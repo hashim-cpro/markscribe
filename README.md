@@ -7,6 +7,42 @@
 
 Your personal markdown scribe with template-engine and Git(Hub) & RSS powers 📜
 
+## Table of Contents
+
+- [markscribe](#markscribe)
+  - [Table of Contents](#table-of-contents)
+  - [Usage](#usage)
+  - [Installation](#installation)
+    - [Packages \& Binaries](#packages--binaries)
+    - [Build From Source](#build-from-source)
+  - [Templates](#templates)
+  - [Functions](#functions)
+    - [RSS feed](#rss-feed)
+    - [Your recent contributions](#your-recent-contributions)
+    - [Your recent pull requests](#your-recent-pull-requests)
+    - [Repositories you recently starred](#repositories-you-recently-starred)
+    - [Repositories you recently created](#repositories-you-recently-created)
+    - [Custom GitHub repository](#custom-github-repository)
+    - [Forks you recently created](#forks-you-recently-created)
+    - [Recent releases you contributed to](#recent-releases-you-contributed-to)
+    - [Your published gists](#your-published-gists)
+    - [Your latest followers](#your-latest-followers)
+    - [Your sponsors](#your-sponsors)
+    - [Your GoodReads reviews](#your-goodreads-reviews)
+    - [Your GoodReads currently reading books](#your-goodreads-currently-reading-books)
+    - [Your Literal.club currently reading books](#your-literalclub-currently-reading-books)
+    - [Hackatime Stats and Visualizations](#hackatime-stats-and-visualizations)
+      - [Basic Stats](#basic-stats)
+      - [Language Statistics with Progress Bars](#language-statistics-with-progress-bars)
+      - [Individual Language Data](#individual-language-data)
+      - [Available Data](#available-data)
+  - [Template Engine](#template-engine)
+  - [Template Helpers](#template-helpers)
+  - [GitHub Authentication](#github-authentication)
+  - [GoodReads API key](#goodreads-api-key)
+  - [Hackatime API Setup](#hackatime-api-setup)
+  - [FAQ](#faq)
+
 You can run markscribe as a GitHub Action: [readme-scribe](https://github.com/muesli/readme-scribe/)
 
 ## Usage
@@ -239,6 +275,87 @@ This function requires GoodReads API key!
 
 This function requires a `LITERAL_EMAIL` and `LITERAL_PASSWORD`.
 
+### Hackatime Stats and Visualizations
+
+To use Hackatime integration, you need to set up the following environment variables:
+
+- `HACKATIME_API_KEY`: Your Hackatime API key
+- `HACKATIME_USERNAME`: Your Hackatime username
+
+#### Basic Stats
+
+Get your basic coding statistics:
+
+```
+{{with hackatimeStats}}
+Status: {{.Data.Status}}
+Total Time: {{.Data.HumanReadableTotal}}
+Daily Average: {{.Data.HumanReadableDailyAvg}}
+{{end}}
+```
+
+#### Language Statistics with Progress Bars
+
+Display your most used languages with beautiful progress bars:
+
+```
+{{with hackatimeStats}}
+{{ wakatimeLanguages "💾 Languages:" .Data.Languages 5 .Data.HumanReadableTotal }}
+{{end}}
+```
+
+This will output something like:
+
+```
+💾 Languages:
+TypeScript      5h 52m 21s   ████████░░░░░░░░░░░░░░░░░  30.19%
+HTML            2h 15m 23s   ███░░░░░░░░░░░░░░░░░░░░░░  11.60%
+JavaScript      2h 14m 48s   ███░░░░░░░░░░░░░░░░░░░░░░  11.55%
+Ruby            1h 51m 43s   ███░░░░░░░░░░░░░░░░░░░░░░  9.57%
+Nix             1h 24m 0s    ██░░░░░░░░░░░░░░░░░░░░░░░  7.20%
+
+Total: 19 hrs 28 mins
+```
+
+#### Individual Language Data
+
+Access detailed information about each language:
+
+```
+{{with hackatimeStats}}
+{{range .Data.Languages}}
+- {{.Name}}: {{.Text}} ({{.Percent}}%)
+{{end}}
+{{end}}
+```
+
+Each language entry includes:
+
+- Name of the programming language
+- Total coding time in human-readable format
+- Hours and minutes breakdown
+- Percentage of total coding time
+
+#### Available Data
+
+The Hackatime integration provides access to:
+
+- Coding activity visibility status
+- Time range information
+- Total coding time
+- Daily averages
+- Language statistics
+
+Each language entry includes:
+
+- Name
+- Total seconds
+- Human-readable time
+- Percentage
+- Digital format time
+
+> Currently [Hackatime API](https://github.com/hackclub/hackatime) doesn't has any direct way of extracting projects related data. So can't access that. Also, I tried to filter the data for specific intervals on the API but that ain't working for some reason as well.(API issue)
+
 ## Template Engine
 
 markscribe uses Go's powerful template engine. You can find its documentation
@@ -275,6 +392,21 @@ valid GoodReads key in an environment variable called `GOODREADS_TOKEN`. You can
 create a new token by going [here](https://www.goodreads.com/api/keys).
 Then you need to go to your repository and add it, `Settings -> Secrets -> New secret`.
 You also need to set your GoodReads user ID in your secrets as `GOODREADS_USER_ID`.
+
+## Hackatime API Setup
+
+To use the Hackatime integration, you need to set up two environment variables:
+
+1. `HACKATIME_API_KEY`: Your Hackatime API key
+
+   - Log into your Hackatime account
+   - Go to your settings page
+   - Generate a new API key or copy your existing one
+   - Set the environment variable: `HACKATIME_API_KEY="your-api-key"`
+
+2. `HACKATIME_USERNAME`: Your Hackatime username
+   - This is your slack id in [Hackclub Slack](https://hackclub.com/slack/)
+   - Set the environment variable: `HACKATIME_USERNAME="your-username"`
 
 ## FAQ
 

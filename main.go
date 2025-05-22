@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/KyleBanks/goodreads"
+	"github.com/joho/godotenv"
 	"github.com/shurcooL/githubv4"
 	"golang.org/x/oauth2"
 )
@@ -31,6 +32,11 @@ func main() {
 	if len(flag.Args()) == 0 {
 		fmt.Println("Usage: markscribe [template]")
 		os.Exit(1)
+	}
+
+	// Load .env file
+	if err := godotenv.Load(); err != nil {
+		fmt.Println("Warning: Error loading .env file:", err)
 	}
 
 	tplIn, err := ioutil.ReadFile(flag.Args()[0])
@@ -58,6 +64,11 @@ func main() {
 		"goodReadsCurrentlyReading": goodReadsCurrentlyReading,
 		/* Literal.club */
 		"literalClubCurrentlyReading": literalClubCurrentlyReading,
+		/* Hackatime */
+		"hackatimeStats":          hackatimeStats,
+		"wakatimeSingleCategoryBar": wakatimeSingleCategoryBar,
+		"wakatimeDoubleCategoryBar": wakatimeDoubleCategoryBar,
+		"wakatimeLanguages":         wakatimeLanguages,
 		/* Utils */
 		"humanize": humanized,
 		"reverse":  reverse,
