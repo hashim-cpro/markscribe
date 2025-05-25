@@ -279,8 +279,8 @@ This function requires a `LITERAL_EMAIL` and `LITERAL_PASSWORD`.
 
 To use Hackatime integration, you need to set up the following environment variables:
 
-- `HACKATIME_API_KEY`: Your Hackatime API key
-- `HACKATIME_USERNAME`: Your Hackatime username
+- `WAKATIME_API_KEY`: Your Hackatime API key
+- `WAKATIME_USERNAME`: Your Hackatime username
 
 #### Basic Stats
 
@@ -397,16 +397,16 @@ You also need to set your GoodReads user ID in your secrets as `GOODREADS_USER_I
 
 To use the Hackatime integration, you need to set up two environment variables:
 
-1. `HACKATIME_API_KEY`: Your Hackatime API key
+1. `WAKATIME_API_KEY`: Your Hackatime API key
 
    - Log into your Hackatime account
    - Go to your settings page
    - Generate a new API key or copy your existing one
-   - Set the environment variable: `HACKATIME_API_KEY="your-api-key"`
+   - Set the environment variable: `WAKATIME_API_KEY="your-api-key"`
 
-2. `HACKATIME_USERNAME`: Your Hackatime username
+2. `WAKATIME_USERNAME`: Your Hackatime username
    - This is your slack id in [Hackclub Slack](https://hackclub.com/slack/)
-   - Set the environment variable: `HACKATIME_USERNAME="your-username"`
+   - Set the environment variable: `WAKATIME_USERNAME="your-username"`
 
 ## FAQ
 
